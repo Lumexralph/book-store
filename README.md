@@ -14,6 +14,7 @@ Motivation: From studying a book by Federico Marani. “Practical Django 2 and C
 - Integrations with distribution companies
 - Real-time components that will be used through a mobile application
 - Mobile Application (I have never used ReactNative only done Flutter for some weeks, I am yet to decide)
+- Recreate the webapp with React and Typescript
 - Whatever idea pops up in my head
 
 ## The project will be integrated with other libraries:

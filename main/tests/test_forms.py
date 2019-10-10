@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.core import mail
+from django.urls import reverse
+
 from main import forms
 
 
@@ -26,3 +28,11 @@ class TestForm(TestCase):
         })
 
         self.assertFalse(form.is_valid())
+
+    def test_contact_us_page_works(self):
+        response = self.client.get(reverse('contact-us'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('main/contact_form.html')
+        self.assertContains(response, 'BookStore')
+        self.assertIsInstance(response.context['form'], forms.ContactForm)

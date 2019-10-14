@@ -134,3 +134,10 @@ if not DEBUG:
     EMAIL_HOST_PASSWORD = 'password'
 else:
     EMAIL_BACKEND = ('django.core.mail.backends.console.EmailBackend')
+
+
+# we are managing user-uploaded files, we need to make
+# sure Django knows where to store these files,
+# and where to serve them from
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

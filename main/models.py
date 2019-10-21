@@ -6,11 +6,26 @@ class ActiveManager(models.Manager):
         return self.filter(active=True)
 
 
+class ProductTagManager(models.Manager):
+    """When loading data using natural keys, Django cannot use the
+    natural_key() method I defined already, because model loading
+    happens through managers, not models themselves.
+
+    To be able to load tags back in, I need to create a Manager
+    for that model and implement the get_by_natural_key() method
+    """
+
+    def get_by_natural_key(self, slug):
+        return self.get(slug=slug)
+
+
 class ProductTag(models.Model):
     name = models.CharField(max_length=32)
     slug = models.SlugField(max_length=48)
     description = models.TextField(blank=True)
     active = models.BooleanField(default=True)
+
+    objects = ProductTagManager()
 
     def __str__(self):
         return self.name

@@ -6,6 +6,16 @@ class ActiveManager(models.Manager):
         return self.filter(active=True)
 
 
+class ProductTag(models.Model):
+    name = models.CharField(max_length=32)
+    slug = models.SlugField(max_length=48)
+    description = models.TextField(blank=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     name = models.CharField(max_length=32)
     description = models.TextField(blank=True)
@@ -14,6 +24,8 @@ class Product(models.Model):
     active = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
     date_updated = models.DateTimeField(auto_now=True)
+    tags = models.ManyToManyField(ProductTag, blank=True,
+                                  related_name='products')
 
     objects = ActiveManager()
 
@@ -29,14 +41,3 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.product.name
-
-
-class ProductTag(models.Model):
-    products = models.ManyToManyField(Product, blank=True, related_name='tags')
-    name = models.CharField(max_length=32)
-    slug = models.SlugField(max_length=48)
-    description = models.TextField(blank=True)
-    active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.name

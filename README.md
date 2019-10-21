@@ -14,7 +14,7 @@ Motivation: From studying a book by Federico Marani. “Practical Django 2 and C
 - Integrations with distribution companies
 - Real-time components that will be used through a mobile application
 - Mobile Application (I have never used ReactNative only done Flutter for some weeks, I am yet to decide)
-- Recreate the webapp with React and Typescript
+- Recreate the web app with React and Typescript
 - Whatever idea pops up in my head
 
 ## The project will be integrated with other libraries:
@@ -28,6 +28,8 @@ Motivation: From studying a book by Federico Marani. “Practical Django 2 and C
 - Django Channels
 
 ## Django Channels
+
+Channels is a project that takes Django and extends its abilities beyond HTTP - to handle WebSockets, chat protocols, IoT protocols, and more. It’s built on a Python specification called [ASGI](http://asgi.readthedocs.io/).
 
 Django Channels is a new piece in the Django ecosystem that allows us to solve a class of problems that standard Django does not solve well: event-driven programming. Event-driven programming is the best paradigm to use when a system has high input/output load, which goes beyond normal HTTP request/response traffic. Chat systems fit in this, because people do not talk by following a request/response pattern.
 

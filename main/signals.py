@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 @receiver(pre_save, sender=ProductImage)
 def generate_thumbnail(sender, instance, **kwargs):
-    logger.info('Generating thumbnail for product %d', instance.id)
+    logger.info('Generating thumbnail for product %d', instance.product.id)
     image = Image.open(instance.image)
     image = image.convert('RGB')
     image.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
@@ -24,7 +24,7 @@ def generate_thumbnail(sender, instance, **kwargs):
     temp_thumb.seek(0)              # move the start of the sequence of bytes
 
     # set save=False otherwise it will run in infinite loop
-    isinstance.thumbnail.save(
+    instance.thumbnail.save(
         instance.image.name,
         ContentFile(temp_thumb.read()),
         save=False,

@@ -15,6 +15,13 @@ class ProductTag(models.Model):
     def __str__(self):
         return self.name
 
+    def natural_key(self):
+        """return the tag natural key. In our case, we will use
+         the slug as a natural key. The rationale behind this is
+         that slugs, used as part of URLs, are unlikely to change
+        """
+        return (self.slug,)
+
 
 class Product(models.Model):
     name = models.CharField(max_length=32)

@@ -13,8 +13,8 @@ class Command(BaseCommand):
     help = 'Import products in BookStore'
 
     def add_arguments(self, parser):
-        parser.add_arguments('csvfile', type=open)
-        parser.add_arguments('image_basedir', type=str)
+        parser.add_argument('csvfile', type=open)
+        parser.add_argument('image_basedir', type=str)
 
     def handle(self, *args, **options):
         self.stdout.write('Importing products...')

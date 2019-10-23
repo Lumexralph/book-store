@@ -3,7 +3,7 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 
 from main import forms
-from main.models import Product, ProductImage, ProductTag
+from main.models import Product, ProductTag
 
 
 class ContactUsView(FormView):

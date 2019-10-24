@@ -15,7 +15,7 @@ urlpatterns = [
         name='products',
     ),
     path(
-        'product/<slug:slug>',
+        'product/<slug:slug>/',
         DetailView.as_view(model=Product),
         name='product',
     ),

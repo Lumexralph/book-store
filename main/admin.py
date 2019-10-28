@@ -1,10 +1,48 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
 from main.models import (
                         Product,
                         ProductImage,
-                        ProductTag)
+                        ProductTag, User)
+
+
+@admin.register(User)
+class UserAdmin(DjangoUserAdmin):
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (
+            'personal info', {'fields': ('first_name', 'last_name')},
+        ),
+        (
+            'permissions',
+            {
+                'fields': (
+                    'is_active',
+                    'is_staff',
+                    'is_superuser',
+                    'groups',
+                    'user_permissions',
+                )
+            },
+        ),
+        (
+            'Important dates',
+            {'fields': ('last_login', 'date|_joined')},
+        ),
+    )
+    add_fieldsets = (
+        (
+            None, {
+                'classes': ('wide',),
+                'fields': ('email', 'password1', 'password2'),
+            },
+        ),
+    )
+    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    search_fields = ('email', 'first_name', 'last_name')
+    ordering = ('email',)
 
 
 class ProductAdmin(admin.ModelAdmin):

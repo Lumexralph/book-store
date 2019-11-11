@@ -63,11 +63,16 @@ class SignupView(FormView):
         logger.info(
             'New signup for email=%s through SignupView', email
         )
+        # ensure that the credentials passed are valid according
+        # to the authentication backend
         user = authenticate(email=email, password=raw_password)
+        # associate the current user and future requests
+        # via a session
         login(self.request, user)
 
         form.send_mail()
-
+        # django message framework used to display flash messages
+        # to users, just a form of feedback
         messages.info(
             self.request, 'Signup was successful'
         )

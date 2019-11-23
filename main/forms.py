@@ -46,7 +46,7 @@ class UserCreationForm(DjangoUserCreationForm):
         send_mail(
             'Welcome to BookStore',
             message,
-            'site@bookstore.domain'
+            'site@bookstore.domain',
             [self.cleaned_data['email']],
             fail_silently=True,
         )

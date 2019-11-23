@@ -36,7 +36,15 @@
             </ul>
           </div>
         </nav>
-    <!-- where ti slot other pages -->
+
+        <!-- flash messages -->
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <!-- where to slot other pages -->
     {% block content %}
     {% endblock content %}
     <script src="{% static "js/jquery.min.js" %}"></script>

@@ -3,7 +3,14 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import LoginView
 
-from main.views import ContactUsView, ProductListView, SignupView
+from main.views import (
+    ContactUsView,
+    ProductListView,
+    SignupView,
+    AddressListView,
+    AddressCreateView,
+    AddressUpdateView,
+    AddressDeleteView)
 from main.models import Product
 from main.forms import AuthenticationForm
 
@@ -27,5 +34,12 @@ urlpatterns = [
         template_name='login.html',
         form_class=AuthenticationForm,
     ),
-     name='login')
+     name='login'),
+    path('address/', AddressListView.as_view(), name='address_list'),
+    path('address/create/', AddressCreateView.as_view(),
+         name='address_create'),
+    path('address/<int: pk>/', AddressUpdateView.as_view(),
+         name='address_update'),
+    path('address/<int: pk>/', AddressDeleteView.as_view(),
+         name='address_delete'),
 ]

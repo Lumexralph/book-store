@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib import auth
 
-from main.models import Product, User
+from main.models import Product, User, Address
 from main.forms import UserCreationForm
 
 
@@ -100,3 +100,52 @@ class TestPage(TestCase):
         self.assertTrue(auth.get_user(self.client).is_authenticated)
         self.assertTrue(User.objects.filter(email='user@domain.com').exists())
         mock_send.assert_called_once()
+
+    def test_address_list_page_returns_owned_by_user(self):
+        user1 = User.objects.create_user("user1", "12345pw")
+        user2 = User.objects.create_user("user2", "12345pw")
+
+        Address.objects.create(
+            user=user1,
+            name="lumex ralph",
+            address1="1 mende",
+            address2="24 church street",
+            city="kano",
+            country="Nigeria",
+        )
+        Address.objects.create(
+            user=user2,
+            name="Ian ralph",
+            address1="4 mendez",
+            address2="24 boulevard street",
+            city="Abuja",
+            country="Nigeria",
+        )
+
+        self.client.force_login(user2)
+        response = self.client.get(reverse("address_list"))
+
+        self.assertEqual(response.status_code, 200)
+        address_list = Address.objects.filter(user=user2)
+        self.assertEqual(
+                         list(response.context["object_list"]),
+                         list(address_list),
+                         )
+
+    def test_address_create_stores_user(self):
+        user1 = User.objects.create_user("user1", "12345pw")
+        post_data = {
+            "name": "dedah walker",
+            "address1": "20 broadstreet",
+            "address2": "",
+            "zip_code": "IKJ20",
+            "city": "Ibadan",
+            "country": "brazil",
+        }
+
+        self.client.force_login(user1)
+        self.client.post(
+            reverse("address_create"), post_data,
+        )
+
+        self.assertEqual(Address.objects.filter(user=user1).exists())
